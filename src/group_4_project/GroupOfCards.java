@@ -1,7 +1,7 @@
 /**
  * SYST 17796 Project Base code.
  * Students can modify and extend to implement their game.
- * Add your name as an author and the date!
+ * author : - Rohit
  */
 package group_4_project;
 
@@ -13,28 +13,23 @@ public class GroupOfCards {
     private List<Card> cards;
 
     public GroupOfCards() {
-        cards = new ArrayList<>();
-        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
-        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
-        int[] values = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11}; // Face cards are worth 10, Ace is worth 11
-
-        for (int i = 0; i < suits.length; i++) {
-            for (int j = 0; j < ranks.length; j++) {
-                cards.add(new Card(suits[i], ranks[j], values[j]));
-            }
-        }
-        shuffle();
+        this.cards = new ArrayList<>();
+        initializeDeck();
     }
 
-    public void shuffle() {
+    private void initializeDeck() {
+        for (int suit = 0; suit < 4; suit++) {
+            for (int rank = 1; rank <= 13; rank++) {
+                cards.add(new Card(suit, rank));
+            }
+        }
         Collections.shuffle(cards);
     }
 
     public Card draw() {
-        return cards.remove(cards.size() - 1);
-    }
-
-    public boolean isEmpty() {
-        return cards.isEmpty();
+        if (cards.isEmpty()) {
+            throw new IllegalStateException("The deck is empty!");
+        }
+        return cards.remove(0);
     }
 }
