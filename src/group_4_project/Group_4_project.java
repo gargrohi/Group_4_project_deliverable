@@ -16,7 +16,7 @@ public class Group_4_project {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter your name: ");
         String playerName = scanner.nextLine();

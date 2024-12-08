@@ -1,8 +1,3 @@
-/**
- * SYST 17796 Project Base code.
- * Students can modify and extend to implement their game.
- * author : - rohit
- */
 package group_4_project;
 
 import java.util.Scanner;
@@ -13,21 +8,19 @@ import java.util.Scanner;
  *
  */
 public class Game {
-    private String playerName;
-    private int playerScore;
-    private int dealerScore;
+    private Player player;
+    private Player dealer;
     private GroupOfCards deck;
 
     public Game(String playerName) {
-        this.playerName = playerName;
-        this.playerScore = 0;
-        this.dealerScore = 0;
+        this.player = new Player(playerName);
+        this.dealer = new Player("Dealer");
         this.deck = new GroupOfCards(); // Aggregation
     }
 
     // Start the game
     public void start() {
-        System.out.println("Welcome to the game, " + playerName + "!");
+        System.out.println("Welcome to the game, " + player.getName() + "!");
         playGame();
     }
 
@@ -44,48 +37,31 @@ public class Game {
 
             // Player's Turn
             Card playerCard = deck.draw();
-            playerScore += playerCard.getValue();
-            System.out.println("You drew: " + playerCard);
-            System.out.println("Your total score: " + playerScore);
+            player.drawCard(playerCard);
+            System.out.println(player.getName() + " drew: " + playerCard);
+            System.out.println(player);
 
             // Dealer's Turn
             Card dealerCard = deck.draw();
-            dealerScore += dealerCard.getValue();
-            System.out.println("Dealer drew: " + dealerCard);
-            System.out.println("Dealer's total score: " + dealerScore);
+            dealer.drawCard(dealerCard);
+            System.out.println(dealer.getName() + " drew: " + dealerCard);
+            System.out.println(dealer);
 
             roundsPlayed++;
         }
 
         // Final Scores
         System.out.println("\nGame Over! Final Scores:");
-        System.out.println(playerName + ": " + playerScore);
-        System.out.println("Dealer: " + dealerScore);
+        System.out.println(player);
+        System.out.println(dealer);
 
         // Determine Winner
-        if (playerScore > dealerScore) {
-            System.out.println("You win!");
-        } else if (playerScore < dealerScore) {
-            System.out.println("Dealer wins.");
+        if (player.getScore() > dealer.getScore()) {
+            System.out.println(player.getName() + " wins!");
+        } else if (player.getScore() < dealer.getScore()) {
+            System.out.println(dealer.getName() + " wins.");
         } else {
             System.out.println("It's a tie!");
         }
-    }
-
-    // Encapsulation: Add getter methods
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public int getPlayerScore() {
-        return playerScore;
-    }
-
-    public int getDealerScore() {
-        return dealerScore;
-    }
-
-    public GroupOfCards getDeck() {
-        return deck;
     }
 }
